@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تسجيل البيانات - فرص</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f2f2f2;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: white;
+      padding: 15px 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .logo {
+      height: 40px;
+    }
+
+    .site-title {
+      flex: 1;
+      text-align: center;
+      font-size: 28px;
+      font-weight: bold;
+      color: #007BFF;
+      font-family: 'Cairo', sans-serif;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: 40px auto;
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    input, select, button {
+      display: block;
+      width: 100%;
+      margin: 12px 0;
+      padding: 12px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    button {
+      background: #007BFF;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+
+    @media (max-width: 600px) {
+      .site-title {
+        font-size: 22px;
+      }
+
+      .container {
+        margin: 20px;
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+  <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Pictogrammers-noto-v1-logo-circle-filled.svg" alt="Logo" class="logo">
+  <div class="site-title">فُرص</div>
+</header>
+
+<!-- Form -->
+<div class="container">
+  <h2 style="text-align: center; color: #333;">نموذج تسجيل البيانات</h2>
+
+  <input type="text" id="name" placeholder="الاسم" required>
+  <input type="text" id="phone" placeholder="رقم الهاتف" required>
+  <input type="email" id="email" placeholder="البريد الإلكتروني" required>
+
+  <select id="university" required>
+    <option value="">اختر الدولة الجامعية</option>
+    <option value="الهند">الهند</option>
+    <option value="ماليزيا">ماليزيا</option>
+    <option value="الصين">الصين</option>
+    <option value="بنغلاديش">بنغلاديش</option>
+    <option value="تركيا">تركيا</option>
+    <option value="رومانيا">رومانيا</option>
+  </select>
+
+  <input type="text" id="grade" placeholder="نسبة النجاح" required>
+
+  <select id="major" required>
+    <option value="">اختر نوع الكلية</option>
+    <option value="كليات الهندسة">كليات الهندسة</option>
+    <option value="كليات الطب">كليات الطب</option>
+  </select>
+
+  <button onclick="sendData()">إرسال البيانات</button>
+</div>
+
+<script>
+  function sendData() {
+    const data = {
+      name: document.getElementById("name").value,
+      phone: document.getElementById("phone").value,
+      email: document.getElementById("email").value,
+      university: document.getElementById("university").value,
+      grade: document.getElementById("grade").value,
+      major: document.getElementById("major").value
+    };
+
+    fetch("https://script.google.com/macros/s/AKfycbyXYQZ2ltqZZW71ULEzrjgn8ZZzFPj1g2W8Y1OjiNKZorI9bu2pAQ8QYrDrU7NjCYrh/exec", {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+    .then(response => {
+      alert("✅ تم إرسال البيانات بنجاح!");
+      // إعادة تعيين الحقول بعد الإرسال
+      document.getElementById("name").value = "";
+      document.getElementById("phone").value = "";
+      document.getElementById("email").value = "";
+      document.getElementById("university").value = "";
+      document.getElementById("grade").value = "";
+      document.getElementById("major").value = "";
+    })
+    .catch(error => {
+      console.error("خطأ:", error);
+      alert("❌ حدث خطأ أثناء الإرسال. حاول مرة أخرى.");
+    });
+  }
+</script>
+
+</body>
+</html>
